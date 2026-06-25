@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Весілля Марії та Дмитра | 08.08.2026</title>
+    <!-- Підключення узгоджених шрифтів -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Базові змінні під кольорову гаму (можна легко замінити HEX-коди) */
+        :root {
+            --primary-color: #4A5D4E; /* Основний акцент (наприклад, шавлія/оливковий) */
+            --secondary-color: #D4C4B7; /* Бежевий */
+            --text-color: #2C3E50;
+            --bg-color: #FAFAFA;
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-text: 'Montserrat', sans-serif;
+        }
+        body { margin: 0; font-family: var(--font-text); background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+        
+        /* Типографіка */
+        h1, h2, h3 { font-family: var(--font-heading); font-weight: 600; text-align: center; }
+        h1 { font-size: 4rem; margin-bottom: 0.5rem; color: var(--primary-color); }
+        h2 { font-size: 2.5rem; margin-bottom: 2rem; color: var(--primary-color); position: relative; }
+        h2::after { content: ''; display: block; width: 60px; height: 2px; background: var(--secondary-color); margin: 15px auto 0; }
+        
+        /* Плавна навігація */
+        html { scroll-behavior: smooth; }
+        
+        /* Анімації появи */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        
+        /* Головний екран */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(rgba(250,250,250,0.8), rgba(250,250,250,0.9)), url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1920&q=80') center/cover; }
+        .date { font-size: 1.2rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; color: var(--text-color); }
+        
+        /* Меню */
+        nav { position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); backdrop-filter: blur(5px); }
+        nav ul { display: flex; justify-content: center; list-style: none; padding: 1.2rem; margin: 0; flex-wrap: wrap; gap: 25px; }
+        nav a { text-decoration: none; color: var(--text-color); font-weight: 500; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+        nav a:hover { color: var(--primary-color); }
+        
+        /* Блоки контенту */
+        section { padding: 5rem 1.5rem; max-width: 800px; margin: 0 auto; }
+        .card { background: #fff; padding: 3rem 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); text-align: center; margin-bottom: 2rem; }
+        
+        /* Розклад */
+        .timeline-item { margin-bottom: 2rem; }
+        .timeline-time { font-size: 1.8rem; color: var(--primary-color); font-family: var(--font-heading); }
+        .timeline-title { font-size: 1.2rem; font-weight: 600; margin: 0.5rem 0; }
+        
+        /* Дрескод */
+        .palette { display: flex; justify-content: center; gap: 15px; margin-top: 2rem; flex-wrap: wrap; }
+        .color-swatch { width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); position: relative; cursor: pointer; transition: transform 0.3s; }
+        .color-swatch:hover { transform: scale(1.1); }
+        .color-name { position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); font-size: 0.8rem; font-weight: 500; white-space: nowrap; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+        .color-swatch:hover .color-name { opacity: 1; }
+        
+        /* Кнопки та форми */
+        .btn { display: inline-block; padding: 14px 35px; background: var(--primary-color); color: #fff; text-decoration: none; border-radius: 30px; font-weight: 500; transition: all 0.3s; border: none; cursor: pointer; font-size: 1rem; margin-top: 1rem; box-shadow: 0 4px 15px rgba(74, 93, 78, 0.3); }
+        .btn:hover { background: #3a4a3e; transform: translateY(-2px); }
+        input, textarea, select { width: 100%; padding: 14px; margin-bottom: 1.2rem; border: 1px solid #ddd; border-radius: 8px; font-family: var(--font-text); box-sizing: border-box; background: #fafafa; transition: border 0.3s; }
+        input:focus, textarea:focus, select:focus { outline: none; border-color: var(--primary-color); background: #fff; }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="date fade-in">08 серпня 2026</div>
+    <h1 class="fade-in">Марія & Дмитро</h1>
+    <p class="fade-in" style="font-size: 1.4rem; font-style: italic; font-family: var(--font-heading)">Ми одружуємося!</p>
+</div>
+
+<nav>
+    <ul>
+        <li><a href="#story">Наша історія</a></li>
+        <li><a href="#details">Весілля</a></li>
+        <li><a href="#dresscode">Дрескод</a></li>
+        <li><a href="#gifts">Подарунки</a></li>
+        <li><a href="#rsvp">RSVP</a></li>
+    </ul>
+</nav>
+
+<section id="story" class="fade-in">
+    <h2>Наша історія</h2>
+    <div class="card">
+        <p>Тут ви можете написати кілька теплих слів про те, як ви познайомилися або про момент, коли зрозуміли, що це назавжди. Це оживить сайт і зробить його по-справжньому вашим.</p>
+    </div>
+</section>
+
+<section id="details" class="fade-in">
+    <h2>Програма дня</h2>
+    <div class="card">
+        <div class="timeline-item">
+            <div class="timeline-time">15:00</div>
+            <div class="timeline-title">Збір гостей</div>
+            <p>Forrest Club<br>Литовський просп., 20a, Київ</p>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-time">15:30</div>
+            <div class="timeline-title">Церемонія</div>
+            <p>Обмін обіцянками та найтепліші миті.</p>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-time">16:30 — 22:00</div>
+            <div class="timeline-title">Святковий бенкет</div>
+            <p>Смачна їжа, танці та емоції у колі найрідніших.</p>
+        </div>
+        <a href="https://maps.google.com/?q=Forrest+Club+Київ" class="btn" target="_blank">📍 Показати на мапі</a>
+    </div>
+</section>
+
+<section class="fade-in">
+    <h2>Логістика та Трансфер</h2>
+    <div class="card">
+        <p>Для тих, хто їхатиме з Боярки, буде організовано трансфер.</p>
+        <p>🚌 <b>Відправлення о 14:00</b><br>Місце збору: [Вставте точну локацію, наприклад: біля ТЦ "Епіцентр" або Залізничної станції].</p>
+        <hr style="border: 0; height: 1px; background: #eee; margin: 2rem 0;">
+        <p>Бенкет завершується о 22:00. Інших гостей просимо скористатися послугами таксі (радимо замовляти авто о 21:45).</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">Координатор весілля: +38 (000) 000-00-00 (Ім'я)</p>
+    </div>
+</section>
+
+<section id="dresscode" class="fade-in">
+    <h2>Дрескод</h2>
+    <div class="card">
+        <p>Найважливіше для нас — ваша присутність! Але будемо щиро вдячні, якщо підтримаєте кольорову гаму нашого весілля.</p>
+        <!-- Можна замінити background-color на ті, що у вашому дрес-коді -->
+        <div class="palette">
+            <div class="color-swatch" style="background-color: #4A5D4E;"><span class="color-name">Шавлія</span></div>
+            <div class="color-swatch" style="background-color: #8C9A86;"><span class="color-name">Оливковий</span></div>
+            <div class="color-swatch" style="background-color: #D4C4B7;"><span class="color-name">Бежевий</span></div>
+            <div class="color-swatch" style="background-color: #EADCD0;"><span class="color-name">Пудряний</span></div>
+            <div class="color-swatch" style="background-color: #2C3E50;"><span class="color-name">Темно-синій</span></div>
+            <div class="color-swatch" style="background-color: #111111;"><span class="color-name">Чорний</span></div>
+        </div>
+    </div>
+</section>
+
+<section id="gifts" class="fade-in">
+    <h2>Деталі</h2>
+    <div class="card">
+        <p>Друзі, дякуємо, що розділяєте з нами цей день 💕<br>Замість квітів, які швидко зів'януть, нам буде приємно отримати пляшечку улюбленого напою - алкогольного чи безалкогольного.</p>
+        <p>Якщо бажаєте зробити подарунок — будемо вдячні за внесок у бюджет молодої сім'ї.</p>
+        <a href="https://send.monobank.ua/..." class="btn" target="_blank">🎁 Поповнити Банку</a>
+    </div>
+</section>
+
+<section id="rsvp" class="fade-in">
+    <h2>Підтвердження участі</h2>
+    <div class="card">
+        <p>Дуже чекаємо зустрічі! Просимо дати відповідь до <b>8 липня 2026</b>.</p>
+        <!-- Замість "#" вставте посилання з Formspree для отримання відповідей на пошту -->
+        <form action="https://formspree.io/f/xzdledpg" method="POST">
+            <input type="text" name="name" placeholder="Ваше ім'я та прізвище" required>
+            <select name="attendance" required>
+                <option value="" disabled selected>Чи зможете ви бути з нами?</option>
+                <option value="both">Так, і на церемонію, і на вечірку</option>
+                <option value="ceremony">Тільки на церемонію</option>
+                <option value="party">Тільки на вечірку</option>
+                <option value="no">На жаль, не зможу</option>
+            </select>
+            <textarea name="details" rows="3" placeholder="Чи будете ви з супроводом? Чи маєте особливі дієтичні побажання?"></textarea>
+            <button type="submit" class="btn" style="width: 100%;">Надіслати відповідь</button>
+        </form>
+    </div>
+</section>
+
+<script>
+    // Скрипт для плавного проявлення елементів при скролінгу
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+</script>
+
+</body>
+</html>
