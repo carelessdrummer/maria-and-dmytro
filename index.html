@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Весілля Марії та Дмитра | 08.08.2026</title>
-    <!-- Підключення узгоджених шрифтів -->
+    <!-- Підключення шрифтів -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* Базові змінні під кольорову гаму (можна легко замінити HEX-коди) */
+        /* Базові змінні */
         :root {
-            --primary-color: #4A5D4E; /* Основний акцент (наприклад, шавлія/оливковий) */
-            --secondary-color: #D4C4B7; /* Бежевий */
+            --primary-color: #4A5D4E; 
+            --secondary-color: #D4C4B7; 
             --text-color: #2C3E50;
             --bg-color: #FAFAFA;
             --font-heading: 'Cormorant Garamond', serif;
             --font-text: 'Montserrat', sans-serif;
         }
-        body { margin: 0; font-family: var(--font-text); background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+        
+        body { margin: 0; font-family: var(--font-text); background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; overflow-x: hidden; }
         
         /* Типографіка */
         h1, h2, h3 { font-family: var(--font-heading); font-weight: 600; text-align: center; }
@@ -24,9 +25,13 @@
         h2 { font-size: 2.5rem; margin-bottom: 2rem; color: var(--primary-color); position: relative; }
         h2::after { content: ''; display: block; width: 60px; height: 2px; background: var(--secondary-color); margin: 15px auto 0; }
         
-        /* Плавна навігація */
         html { scroll-behavior: smooth; }
         
+        /* Стартовий екран для запуску музики */
+        #welcome-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--bg-color); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 1s ease, visibility 1s; }
+        #welcome-screen h2 { font-size: 3rem; margin-bottom: 2rem; }
+        .hidden { opacity: 0; visibility: hidden; }
+
         /* Анімації появи */
         .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
@@ -35,6 +40,12 @@
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(rgba(250,250,250,0.8), rgba(250,250,250,0.9)), url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1920&q=80') center/cover; }
         .date { font-size: 1.2rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; color: var(--text-color); }
         
+        /* Таймер */
+        .countdown-wrapper { display: flex; gap: 20px; margin-top: 2rem; }
+        .time-box { background: rgba(255,255,255,0.8); padding: 15px 20px; border-radius: 10px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); backdrop-filter: blur(5px); }
+        .time-box span { display: block; font-size: 2.5rem; font-family: var(--font-heading); color: var(--primary-color); line-height: 1; }
+        .time-box p { margin: 5px 0 0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+
         /* Меню */
         nav { position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); backdrop-filter: blur(5px); }
         nav ul { display: flex; justify-content: center; list-style: none; padding: 1.2rem; margin: 0; flex-wrap: wrap; gap: 25px; }
@@ -45,6 +56,12 @@
         section { padding: 5rem 1.5rem; max-width: 800px; margin: 0 auto; }
         .card { background: #fff; padding: 3rem 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); text-align: center; margin-bottom: 2rem; }
         
+        /* Асиметрична галерея (Masonry) */
+        .masonry { column-count: 2; column-gap: 15px; padding: 20px 0; }
+        .masonry img { width: 100%; border-radius: 8px; margin-bottom: 15px; display: block; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.3s; }
+        .masonry img:hover { transform: scale(1.02); }
+        @media (max-width: 600px) { .masonry { column-count: 1; } }
+
         /* Розклад */
         .timeline-item { margin-bottom: 2rem; }
         .timeline-time { font-size: 1.8rem; color: var(--primary-color); font-family: var(--font-heading); }
@@ -66,12 +83,33 @@
 </head>
 <body>
 
+<!-- Стартовий екран -->
+<div id="welcome-screen">
+    <h2>Марія & Дмитро</h2>
+    <p style="margin-bottom: 2rem;">Увімкніть звук для кращого занурення ✨</p>
+    <button id="enter-btn" class="btn">Відкрити запрошення</button>
+</div>
+
+<!-- Фонова музика (вставте своє посилання на .mp3 файл) -->
+<audio id="bg-music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Головний екран -->
 <div class="hero">
     <div class="date fade-in">08 серпня 2026</div>
     <h1 class="fade-in">Марія & Дмитро</h1>
     <p class="fade-in" style="font-size: 1.4rem; font-style: italic; font-family: var(--font-heading)">Ми одружуємося!</p>
+    
+    <!-- Таймер -->
+    <div class="countdown-wrapper fade-in">
+        <div class="time-box"><span id="days">00</span><p>Днів</p></div>
+        <div class="time-box"><span id="hours">00</span><p>Годин</p></div>
+        <div class="time-box"><span id="minutes">00</span><p>Хвилин</p></div>
+    </div>
 </div>
 
+<!-- Навігація -->
 <nav>
     <ul>
         <li><a href="#story">Наша історія</a></li>
@@ -82,13 +120,22 @@
     </ul>
 </nav>
 
+<!-- Історія та Галерея -->
 <section id="story" class="fade-in">
     <h2>Наша історія</h2>
     <div class="card">
-        <p>Тут ви можете написати кілька теплих слів про те, як ви познайомилися або про момент, коли зрозуміли, що це назавжди. Це оживить сайт і зробить його по-справжньому вашим.</p>
+        <p>Кілька теплих слів про те, як ми познайомилися або про момент, коли зрозуміли, що це назавжди. Тут починається наша спільна історія.</p>
+        <!-- Асиметрична галерея (вставте посилання на ваші фотографії) -->
+        <div class="masonry">
+            <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=500" alt="Наше фото 1">
+            <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=500" alt="Наше фото 2">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=500" alt="Наше фото 3">
+            <img src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=500" alt="Наше фото 4">
+        </div>
     </div>
 </section>
 
+<!-- Програма дня -->
 <section id="details" class="fade-in">
     <h2>Програма дня</h2>
     <div class="card">
@@ -111,48 +158,50 @@
     </div>
 </section>
 
+<!-- Логістика -->
 <section class="fade-in">
     <h2>Логістика та Трансфер</h2>
     <div class="card">
-        <p>Для тих, хто їхатиме з Боярки, буде організовано трансфер.</p>
-        <p>🚌 <b>Відправлення о 14:00</b><br>Місце збору: [Вставте точну локацію, наприклад: біля ТЦ "Епіцентр" або Залізничної станції].</p>
+        <p>Для тих, хто їхатиме з Боярки, буде організовано зручний трансфер.</p>
+        <p>🚌 <b>Відправлення о 14:00</b><br>Місце збору: [Вставте точну локацію в Боярці, наприклад: Залізнична станція "Боярка" або ТЦ].</p>
         <hr style="border: 0; height: 1px; background: #eee; margin: 2rem 0;">
         <p>Бенкет завершується о 22:00. Інших гостей просимо скористатися послугами таксі (радимо замовляти авто о 21:45).</p>
-        <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">Координатор весілля: +38 (000) 000-00-00 (Ім'я)</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">Координатор весілля: +38 (093) 127-06-91 (Яна)</p>
     </div>
 </section>
 
+<!-- Дрескод -->
 <section id="dresscode" class="fade-in">
     <h2>Дрескод</h2>
     <div class="card">
         <p>Найважливіше для нас — ваша присутність! Але будемо щиро вдячні, якщо підтримаєте кольорову гаму нашого весілля.</p>
-        <!-- Можна замінити background-color на ті, що у вашому дрес-коді -->
         <div class="palette">
             <div class="color-swatch" style="background-color: #4A5D4E;"><span class="color-name">Шавлія</span></div>
             <div class="color-swatch" style="background-color: #8C9A86;"><span class="color-name">Оливковий</span></div>
             <div class="color-swatch" style="background-color: #D4C4B7;"><span class="color-name">Бежевий</span></div>
+            <div class="color-swatch" style="background-color: #E0C8B5;"><span class="color-name">Приглушений персиковий</span></div>
             <div class="color-swatch" style="background-color: #EADCD0;"><span class="color-name">Пудряний</span></div>
-            <div class="color-swatch" style="background-color: #2C3E50;"><span class="color-name">Темно-синій</span></div>
             <div class="color-swatch" style="background-color: #111111;"><span class="color-name">Чорний</span></div>
         </div>
     </div>
 </section>
 
+<!-- Подарунки -->
 <section id="gifts" class="fade-in">
     <h2>Деталі</h2>
     <div class="card">
         <p>Друзі, дякуємо, що розділяєте з нами цей день 💕<br>Замість квітів, які швидко зів'януть, нам буде приємно отримати пляшечку улюбленого напою - алкогольного чи безалкогольного.</p>
         <p>Якщо бажаєте зробити подарунок — будемо вдячні за внесок у бюджет молодої сім'ї.</p>
-        <a href="https://send.monobank.ua/..." class="btn" target="_blank">🎁 Поповнити Банку</a>
     </div>
 </section>
 
+<!-- Форма RSVP -->
 <section id="rsvp" class="fade-in">
     <h2>Підтвердження участі</h2>
     <div class="card">
         <p>Дуже чекаємо зустрічі! Просимо дати відповідь до <b>8 липня 2026</b>.</p>
-        <!-- Замість "#" вставте посилання з Formspree для отримання відповідей на пошту -->
-        <form action="https://formspree.io/f/xzdledpg" method="POST">
+        <!-- Вставте посилання з Formspree замість символу # -->
+        <form action="#" method="POST">
             <input type="text" name="name" placeholder="Ваше ім'я та прізвище" required>
             <select name="attendance" required>
                 <option value="" disabled selected>Чи зможете ви бути з нами?</option>
@@ -161,14 +210,50 @@
                 <option value="party">Тільки на вечірку</option>
                 <option value="no">На жаль, не зможу</option>
             </select>
-            <textarea name="details" rows="3" placeholder="Чи будете ви з супроводом? Чи маєте особливі дієтичні побажання?"></textarea>
+            <textarea name="details" rows="3" placeholder="Чи будете ви з супроводом?"></textarea>
             <button type="submit" class="btn" style="width: 100%;">Надіслати відповідь</button>
         </form>
     </div>
 </section>
 
 <script>
-    // Скрипт для плавного проявлення елементів при скролінгу
+    // 1. Логіка стартового екрану та запуску музики
+    const welcomeScreen = document.getElementById('welcome-screen');
+    const enterBtn = document.getElementById('enter-btn');
+    const bgMusic = document.getElementById('bg-music');
+
+    // Блокуємо скрол доки користувач не натисне кнопку
+    document.body.style.overflowY = 'hidden';
+
+    enterBtn.addEventListener('click', () => {
+        welcomeScreen.classList.add('hidden');
+        bgMusic.play().catch(error => console.log("Відтворення аудіо заблоковано браузером."));
+        document.body.style.overflowY = 'auto'; // Відновлюємо скрол
+    });
+
+    // 2. Таймер зворотного відліку до 8 серпня 2026 року (15:00)
+    const countDownDate = new Date("Aug 8, 2026 15:00:00").getTime();
+
+    const timerInterval = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = countDownDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+        document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+        document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+        document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+
+        // Коли час вийде
+        if (distance < 0) {
+            clearInterval(timerInterval);
+            document.querySelector(".countdown-wrapper").innerHTML = "<b>Цей щасливий день настав! 🎉</b>";
+        }
+    }, 1000);
+
+    // 3. Плавне проявлення елементів при скролінгу
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
